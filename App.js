@@ -29,9 +29,10 @@ import OnboardingScreen from './components/common/OnboardingScreen';
 import RoleSelectionScreen from './components/common/RoleSelectionScreen';
 import UserSignupScreen from './components/users/UserSignupScreen';
 
+
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const App = ({email,setEmail,password,setPassword}) => {
   return (
     <NavigationContainer> {/* Wrap your Stack.Navigator in NavigationContainer */}
       <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{ headerShown: false }}>
