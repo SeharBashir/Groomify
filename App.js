@@ -28,6 +28,7 @@ import SplashScreen from './components/common/SplashScreen';
 import OnboardingScreen from './components/common/OnboardingScreen';
 import RoleSelectionScreen from './components/common/RoleSelectionScreen';
 import UserSignupScreen from './components/users/UserSignupScreen';
+import SalonSignupScreen from './components/salons/SalonSignupScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +41,7 @@ const App = ({email,setEmail,password,setPassword}) => {
         <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         <Stack.Screen name="RoleSelectionScreen" component={RoleSelectionScreen} />
         <Stack.Screen name="UserSignupScreen" component={UserSignupScreen} />
+        <Stack.Screen name="SalonSignupScreen" component={SalonSignupScreen} />
         {/* Add other screens here as needed */}
       </Stack.Navigator>
     </NavigationContainer>
