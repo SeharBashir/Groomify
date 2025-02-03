@@ -1164,10 +1164,13 @@ const HomeScreen = () => {
           <Image source={require('../../assets/images/booking.png')} style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavText}>Booking</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomNavItem}>
-          <Image source={require('../../assets/images/chatbot.png')} style={styles.bottomNavIcon} />
-          <Text style={styles.bottomNavText}>AI Chatbot</Text>
-        </TouchableOpacity>
+        <TouchableOpacity 
+  style={styles.bottomNavItem}
+  onPress={() => navigation.navigate('Chatbot')} // Navigate to Chatbot
+>
+  <Image source={require('../../assets/images/chatbot.png')} style={styles.bottomNavIcon} />
+  <Text style={styles.bottomNavText}>AI Chatbot</Text>
+</TouchableOpacity>
         <TouchableOpacity 
           style={styles.bottomNavItem}
           onPress={() => navigation.navigate('UserProfile')} // Navigate to UserProfile
