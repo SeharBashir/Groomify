@@ -10,6 +10,10 @@ import OnboardingScreen from './components/common/OnboardingScreen';
 import RoleSelectionScreen from './components/common/RoleSelectionScreen';
 import UserSignupScreen from './components/users/UserSignupScreen';
 import SalonSignupScreen from './components/salons/SalonSignupScreen';
+import SalonLoginForm from './components/salons/SalonLoginForm';
+import SalonHomeScreen from './components/salons/SalonHomeScreen';
+import AddServices from './components/salons/AddServices';
+import MyServices from './components/salons/MyServices';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +27,10 @@ const App = ({email,setEmail,password,setPassword}) => {
         <Stack.Screen name="RoleSelectionScreen" component={RoleSelectionScreen} />
         <Stack.Screen name="UserSignupScreen" component={UserSignupScreen} />
         <Stack.Screen name="SalonSignupScreen" component={SalonSignupScreen} />
+        <Stack.Screen name="SalonLoginForm" component={SalonLoginForm} />
+        <Stack.Screen name="SalonHomeScreen" component={SalonHomeScreen} />
+        <Stack.Screen name="AddServices" component={AddServices} />
+        <Stack.Screen name="MyServices" component={MyServices} />
         {/* Add other screens here as needed */}
       </Stack.Navigator>
     </NavigationContainer>
