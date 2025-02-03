@@ -1,23 +1,4 @@
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
 
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Sehar</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
 
 
 
@@ -31,9 +12,6 @@ import UserSignupScreen from './components/users/UserSignupScreen';
 import UserLoginScreen from './components/users/UserLoginScreen'
 import UserHomeScreen from './components/users/UserHomeScreen'
 import UserProfile from './components/users/UserProfile'
-import Chatbot from './components/users/Chatbot'
-// import SalonList from './components/users/SalonsList';
-
 
 
 
@@ -51,8 +29,6 @@ const App = ({email,setEmail,password,setPassword}) => {
         <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
         <Stack.Screen name="UserHomeScreen" component={UserHomeScreen} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
-        <Stack.Screen name="Chatbot" component={Chatbot} />
-        {/* <Stack.Screen name="SalonList" component={SalonList} /> */}
         {/* Add other screens here as needed */}
       </Stack.Navigator>
     </NavigationContainer>

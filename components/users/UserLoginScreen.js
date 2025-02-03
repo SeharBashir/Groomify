@@ -1,228 +1,13 @@
-// // // // // import React, { useState } from 'react';
-// // // // // import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
+// // import React, { useState } from 'react';
+// // import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 
-// // // // // const LoginForm = () => {
-// // // // //   const [email, setEmail] = useState('');
-// // // // //   const [password, setPassword] = useState('');
+// // const LoginForm = () => {
+// //   const [email, setEmail] = useState('');
+// //   const [password, setPassword] = useState('');
 
-// // // // //   const handleLogin = () => {
-// // // // //     // You can add your login logic here
-// // // // //     Alert.alert('Login Info', `Email: ${email}\nPassword: ${password}`);
-// // // // //   };
-
-// // // // //   return (
-// // // // //     <View style={styles.container}>
-// // // // //       <Text style={styles.title}>Login</Text>
-// // // // //       <TextInput
-// // // // //         style={styles.input}
-// // // // //         placeholder="Email"
-// // // // //         value={email}
-// // // // //         onChangeText={setEmail}
-// // // // //         keyboardType="email-address"
-// // // // //         autoCapitalize="none"
-// // // // //       />
-// // // // //       <TextInput
-// // // // //         style={styles.input}
-// // // // //         placeholder="Password"
-// // // // //         value={password}
-// // // // //         onChangeText={setPassword}
-// // // // //         secureTextEntry
-// // // // //       />
-// // // // //       <Button title="Login" onPress={handleLogin} />
-// // // // //     </View>
-// // // // //   );
-// // // // // };
-
-// // // // // const styles = StyleSheet.create({
-// // // // //   container: {
-// // // // //     flex: 1,
-// // // // //     justifyContent: 'center',
-// // // // //     padding: 16,
-// // // // //   },
-// // // // //   title: {
-// // // // //     fontSize: 24,
-// // // // //     marginBottom: 20,
-// // // // //     textAlign: 'center',
-// // // // //   },
-// // // // //   input: {
-// // // // //     height: 40,
-// // // // //     borderColor: 'gray',
-// // // // //     borderWidth: 1,
-// // // // //     marginBottom: 12,
-// // // // //     paddingHorizontal: 10,
-// // // // //   },
-// // // // // });
-
-// // // // // export default LoginForm;
-
-
-
-
-// // // // import React, { useState } from "react";
-// // // // import { StyleSheet, Text, TextInput, View, Button, Alert } from "react-native";
-// // // // import { signInWithEmailAndPassword } from "firebase/auth";
-// // // // import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
-
-// // // // const LoginForm = () => {
-// // // //   const [email, setEmail] = useState("");
-// // // //   const [password, setPassword] = useState("");
-
-// // // //   const handleLogin = async () => {
-// // // //     if (!email || !password) {
-// // // //       Alert.alert("Error", "Please enter both email and password!");
-// // // //       return;
-// // // //     }
-
-// // // //     try {
-// // // //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-// // // //       const user = userCredential.user;
-// // // //       Alert.alert("Success login",);
-// // // //       // Yahan aap navigation ka use kar ke next screen pe le ja sakti hain
-// // // //     } catch (error) {
-// // // //       Alert.alert("Error", "Invalid email or password. Please try again!");
-// // // //     }
-// // // //   };
-
-// // // //   return (
-// // // //     <View style={styles.container}>
-// // // //       <Text style={styles.title}>Login</Text>
-// // // //       <TextInput
-// // // //         style={styles.input}
-// // // //         placeholder="Email"
-// // // //         value={email}
-// // // //         onChangeText={setEmail}
-// // // //         keyboardType="email-address"
-// // // //         autoCapitalize="none"
-// // // //       />
-// // // //       <TextInput
-// // // //         style={styles.input}
-// // // //         placeholder="Password"
-// // // //         value={password}
-// // // //         onChangeText={setPassword}
-// // // //         secureTextEntry
-// // // //       />
-// // // //       <Button title="Login" onPress={handleLogin} />
-// // // //     </View>
-// // // //   );
-// // // // };
-
-// // // // const styles = StyleSheet.create({
-// // // //   container: {
-// // // //     flex: 1,
-// // // //     justifyContent: "center",
-// // // //     padding: 16,
-// // // //   },
-// // // //   title: {
-// // // //     fontSize: 24,
-// // // //     marginBottom: 20,
-// // // //     textAlign: "center",
-// // // //   },
-// // // //   input: {
-// // // //     height: 40,
-// // // //     borderColor: "gray",
-// // // //     borderWidth: 1,
-// // // //     marginBottom: 12,
-// // // //     paddingHorizontal: 10,
-// // // //   },
-// // // // });
-
-// // // // export default LoginForm;
-
-
-// // // import React, { useState } from "react";
-// // // import { StyleSheet, Text, TextInput, View, Button, Alert } from "react-native";
-// // // import { signInWithEmailAndPassword } from "firebase/auth";
-// // // import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
-
-// // // const LoginForm = ({ navigation }) => {
-// // //   const [email, setEmail] = useState("");
-// // //   const [password, setPassword] = useState("");
-
-// // //   const handleLogin = async () => {
-// // //     if (!email || !password) {
-// // //       Alert.alert("Error", "Please enter both email and password!");
-// // //       return;
-// // //     }
-
-// // //     try {
-// // //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-// // //       const user = userCredential.user;
-// // //       Alert.alert("Success", "Login successful!");
-// // //       navigation.navigate("UserHomeScreen"); // Navigate to HomeScreen
-// // //     } catch (error) {
-// // //       Alert.alert("Error", "Invalid email or password. Please try again!");
-// // //     }
-// // //   };
-
-// // //   return (
-// // //     <View style={styles.container}>
-// // //       <Text style={styles.title}>Login</Text>
-// // //       <TextInput
-// // //         style={styles.input}
-// // //         placeholder="Email"
-// // //         value={email}
-// // //         onChangeText={setEmail}
-// // //         keyboardType="email-address"
-// // //         autoCapitalize="none"
-// // //       />
-// // //       <TextInput
-// // //         style={styles.input}
-// // //         placeholder="Password"
-// // //         value={password}
-// // //         onChangeText={setPassword}
-// // //         secureTextEntry
-// // //       />
-// // //       <Button title="Login" onPress={handleLogin} />
-// // //     </View>
-// // //   );
-// // // };
-
-// // // const styles = StyleSheet.create({
-// // //   container: {
-// // //     flex: 1,
-// // //     justifyContent: "center",
-// // //     padding: 16,
-// // //   },
-// // //   title: {
-// // //     fontSize: 24,
-// // //     marginBottom: 20,
-// // //     textAlign: "center",
-// // //   },
-// // //   input: {
-// // //     height: 40,
-// // //     borderColor: "gray",
-// // //     borderWidth: 1,
-// // //     marginBottom: 12,
-// // //     paddingHorizontal: 10,
-// // //   },
-// // // });
-
-// // // export default LoginForm;
-
-// // //add link 
-// // import React, { useState } from "react";
-// // import { StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity } from "react-native";
-// // import { signInWithEmailAndPassword } from "firebase/auth";
-// // import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
-
-// // const LoginForm = ({ navigation }) => {
-// //   const [email, setEmail] = useState("");
-// //   const [password, setPassword] = useState("");
-
-// //   const handleLogin = async () => {
-// //     if (!email || !password) {
-// //       Alert.alert("Error", "Please enter both email and password!");
-// //       return;
-// //     }
-
-// //     try {
-// //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-// //       const user = userCredential.user;
-// //       Alert.alert("Success", "Login successful!");
-// //       navigation.navigate("UserHomeScreen"); // Navigate to HomeScreen
-// //     } catch (error) {
-// //       Alert.alert("Error", "Invalid email or password. Please try again!");
-// //     }
+// //   const handleLogin = () => {
+// //     // You can add your login logic here
+// //     Alert.alert('Login Info', `Email: ${email}\nPassword: ${password}`);
 // //   };
 
 // //   return (
@@ -244,13 +29,6 @@
 // //         secureTextEntry
 // //       />
 // //       <Button title="Login" onPress={handleLogin} />
-
-// //       {/* Link to SignUp screen */}
-// //       <View style={styles.linkContainer}>
-// //         <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
-// //           <Text style={styles.linkText}>Don't have an account? Sign up</Text>
-// //         </TouchableOpacity>
-// //       </View>
 // //     </View>
 // //   );
 // // };
@@ -258,41 +36,34 @@
 // // const styles = StyleSheet.create({
 // //   container: {
 // //     flex: 1,
-// //     justifyContent: "center",
+// //     justifyContent: 'center',
 // //     padding: 16,
 // //   },
 // //   title: {
 // //     fontSize: 24,
 // //     marginBottom: 20,
-// //     textAlign: "center",
+// //     textAlign: 'center',
 // //   },
 // //   input: {
 // //     height: 40,
-// //     borderColor: "gray",
+// //     borderColor: 'gray',
 // //     borderWidth: 1,
 // //     marginBottom: 12,
 // //     paddingHorizontal: 10,
-// //   },
-// //   linkContainer: {
-// //     marginTop: 20,
-// //     alignItems: "center",
-// //   },
-// //   linkText: {
-// //     color: "#007BFF", // Blue color for the link
-// //     fontSize: 16,
 // //   },
 // // });
 
 // // export default LoginForm;
 
 
-// // add animation 
+
+
 // import React, { useState } from "react";
-// import { StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity, Image } from "react-native";
+// import { StyleSheet, Text, TextInput, View, Button, Alert } from "react-native";
 // import { signInWithEmailAndPassword } from "firebase/auth";
 // import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
 
-// const LoginForm = ({ navigation }) => {
+// const LoginForm = () => {
 //   const [email, setEmail] = useState("");
 //   const [password, setPassword] = useState("");
 
@@ -305,8 +76,8 @@
 //     try {
 //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
 //       const user = userCredential.user;
-//       Alert.alert("Success", "Login successful!");
-//       navigation.navigate("UserHomeScreen"); // Navigate to HomeScreen
+//       Alert.alert("Success login",);
+//       // Yahan aap navigation ka use kar ke next screen pe le ja sakti hain
 //     } catch (error) {
 //       Alert.alert("Error", "Invalid email or password. Please try again!");
 //     }
@@ -314,12 +85,6 @@
 
 //   return (
 //     <View style={styles.container}>
-//       {/* Displaying the image above the login form */}
-//       <Image
-//         source={require("../../assets/animations/login.json")}  // Update this path based on your image location
-//         style={styles.image}
-//       />
-      
 //       <Text style={styles.title}>Login</Text>
 //       <TextInput
 //         style={styles.input}
@@ -337,13 +102,6 @@
 //         secureTextEntry
 //       />
 //       <Button title="Login" onPress={handleLogin} />
-
-//       {/* Link to SignUp screen */}
-//       <View style={styles.linkContainer}>
-//         <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
-//           <Text style={styles.linkText}>Don't have an account? Sign up</Text>
-//         </TouchableOpacity>
-//       </View>
 //     </View>
 //   );
 // };
@@ -365,20 +123,6 @@
 //     borderWidth: 1,
 //     marginBottom: 12,
 //     paddingHorizontal: 10,
-//   },
-//   image: {
-//     width: 150,  // Set the width of the image
-//     height: 150, // Set the height of the image
-//     marginBottom: 30, // Space between the image and form
-//     alignSelf: "center", // Center the image horizontally
-//   },
-//   linkContainer: {
-//     marginTop: 20,
-//     alignItems: "center",
-//   },
-//   linkText: {
-//     color: "#007BFF", // Blue color for the link
-//     fontSize: 16,
 //   },
 // });
 
