@@ -31,7 +31,7 @@ const RoleSelectionScreen = () => {
          
             <Image source={require('../../assets/salonicon.png')} style={styles.icon} />
             <Text style={styles.buttonText}>Salon</Text>
-          </TouchableOpacity> onPress={() => navigation.navigate('SalonLoginForm')}
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>

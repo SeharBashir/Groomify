@@ -1156,10 +1156,14 @@ const HomeScreen = () => {
           <Image source={require('../../assets/images/home.png')} style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomNavItem}>
-          <Image source={require('../../assets/images/salon.png')} style={styles.bottomNavIcon} />
-          <Text style={styles.bottomNavText}>Salon</Text>
-        </TouchableOpacity>
+        <TouchableOpacity 
+  style={styles.bottomNavItem} 
+  onPress={() => navigation.navigate('SalonList')} // Navigate to SalonList
+>
+  <Image source={require('../../assets/images/salon.png')} style={styles.bottomNavIcon} />
+  <Text style={styles.bottomNavText}>Salon</Text>
+</TouchableOpacity>
+
         <TouchableOpacity style={styles.bottomNavItem}>
           <Image source={require('../../assets/images/booking.png')} style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavText}>Booking</Text>
