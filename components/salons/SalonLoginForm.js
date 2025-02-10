@@ -325,7 +325,7 @@ const SalonLoginForm = ({ navigation }) => {
   };
 
   return (
-    <LinearGradient colors={["#00665C", "#F5A1C0"]} style={styles.container}>
+    <LinearGradient colors={["#00665C","#00665C"]} style={styles.container}>
       {/* Top container with background image */}
       <View style={styles.topContainer}>
         <Image source={require("../../assets/images/Salonbackground.png")} style={styles.image} />
@@ -499,11 +499,11 @@ const styles = StyleSheet.create({
     borderColor: '#00665C',
   },
   validButton: {
-    backgroundColor: '#00665C',
+    backgroundColor: 'white',
   },
   buttonText: {
     fontSize: 16,
-    color: 'black',
+    color: '#00665C',
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -513,16 +513,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   forgotText: {
-    color: '#00665C',
+    color: 'white',
     fontSize: 18,
   },
   orText: {
-    color: '#00665C',
+    color: 'white',
     marginHorizontal: 10,
     fontSize: 14,
   },
   signupText: {
-    color: '#00665C',
+    color: 'white',
     fontSize: 18,
   },
   bottomLine: {

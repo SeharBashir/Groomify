@@ -1,22 +1,26 @@
 // import React, { useState } from 'react';
 // import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
-// import { ref, set, push } from 'firebase/database'; // ✅ Imported `push` for unique key
-// import { getAuth } from 'firebase/auth'; // ✅ Import Firebase Auth to get logged-in user
+// import { ref, push, set } from 'firebase/database';
+// import { getAuth } from 'firebase/auth';
 // import { db } from '../../firebaseConfig';
 // import * as ImagePicker from 'expo-image-picker';
 // import { Ionicons } from '@expo/vector-icons';
+// import axios from 'axios';
+// import { Picker } from '@react-native-picker/picker';
 
 // const AddServices = () => {
 //   const navigation = useNavigation();
 //   const [serviceName, setServiceName] = useState('');
 //   const [price, setPrice] = useState('');
 //   const [additionalCharges, setAdditionalCharges] = useState('');
+//   const [serviceType, setServiceType] = useState('Home Salon');
+//   const [serviceDescription, setServiceDescription] = useState('');
 //   const [images, setImages] = useState([]);
-//   const auth = getAuth(); // ✅ Get auth instance
-//   const user = auth.currentUser; // ✅ Get the logged-in user
+//   const auth = getAuth();
+//   const user = auth.currentUser;
 
-//   // ✅ Function to pick image from gallery
+//   // Function to pick image from gallery
 //   const pickImage = async () => {
 //     let result = await ImagePicker.launchImageLibraryAsync({
 //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -30,46 +34,84 @@
 //     }
 //   };
 
-//   // ✅ Function to save service in Firebase
-//   const saveService = () => {
-//     if (!serviceName || !price) {
+//   // Function to upload image to Cloudinary and return URL
+//   const uploadImageToCloudinary = async (imageUri) => {
+//     const data = new FormData();
+//     data.append('file', {
+//       uri: imageUri,
+//       type: 'image/jpeg',
+//       name: 'service_image.jpg',
+//     });
+//     data.append('upload_preset', 'Groomify');
+
+//     try {
+//       const response = await axios.post('https://api.cloudinary.com/v1_1/der7nytc0/image/upload', data, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       });
+
+//       return response.data.secure_url;
+//     } catch (error) {
+//       console.error('Cloudinary upload error', error);
+//       throw new Error('Failed to upload image to Cloudinary');
+//     }
+//   };
+
+//   // Function to save service to Firebase
+//   const saveService = async () => {
+//     if (!serviceName || !price || !serviceDescription) {
 //       Alert.alert('Error', 'Please fill in all fields.');
 //       return;
 //     }
 
-//     if (!user) { // ✅ Ensure user is logged in
+//     if (!user) {
 //       Alert.alert('Error', 'User not authenticated.');
 //       return;
 //     }
 
-//     const serviceRef = push(ref(db, 'services')); // ✅ Generate a unique key for each service
-//     set(serviceRef, {
-//       serviceName,
-//       price,
-//       additionalCharges,
-//       images,
-//       ownerId: user.uid, // ✅ Store the current user ID with the service
-//     })
-//       .then(() => {
-//         Alert.alert('Success', 'Service added successfully!');
-//         setServiceName('');
-//         setPrice('');
-//         setAdditionalCharges('');
-//         setImages([]);
+//     try {
+//       const uploadedImageUrls = await Promise.all(
+//         images.map((imageUri) => uploadImageToCloudinary(imageUri))
+//       );
+
+//       const serviceRef = push(ref(db, 'services'));
+//       const serviceId = serviceRef.key; // Generate unique service ID
+
+//       set(serviceRef, {
+//         serviceId,
+//         serviceName,
+//         price,
+//         additionalCharges,
+//         serviceType,
+//         serviceDescription,
+//         images: uploadedImageUrls,
+//         ownerId: user.uid,
 //       })
-//       .catch((error) => {
-//         Alert.alert('Error', 'Failed to add service: ' + error.message);
-//       });
+//         .then(() => {
+//           Alert.alert('Success', 'Service added successfully!');
+//           setServiceName('');
+//           setPrice('');
+//           setAdditionalCharges('');
+//           setServiceType('Home Salon');
+//           setServiceDescription('');
+//           setImages([]);
+//         })
+//         .catch((error) => {
+//           Alert.alert('Error', 'Failed to add service: ' + error.message);
+//         });
+//     } catch (error) {
+//       Alert.alert('Error', 'Image upload failed: ' + error.message);
+//     }
 //   };
 
 //   return (
 //     <ScrollView style={styles.container}>
-//       {/* Back Arrow */}
 //       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
 //         <Ionicons name="arrow-back" size={24} color="black" />
 //       </TouchableOpacity>
 
-//       <Text style={styles.header}>Service Type</Text>
+//       <Text style={styles.header}>Add New Service</Text>
 
 //       <View style={styles.inputContainer}>
 //         <Text style={styles.label}>Service Name</Text>
@@ -100,6 +142,31 @@
 //           value={additionalCharges}
 //           onChangeText={setAdditionalCharges}
 //           keyboardType="numeric"
+//         />
+//       </View>
+
+//       <View style={styles.inputContainer}>
+//         <Text style={styles.label}>Service Type</Text>
+//         <View style={styles.pickerContainer}>
+//           <Picker
+//             selectedValue={serviceType}
+//             onValueChange={(itemValue) => setServiceType(itemValue)}
+//             style={styles.picker}
+//           >
+//             <Picker.Item label="Home Salon" value="Home Salon" />
+//             <Picker.Item label="In Salon" value="In Salon" />
+//           </Picker>
+//         </View>
+//       </View>
+
+//       <View style={styles.inputContainer}>
+//         <Text style={styles.label}>Service Description</Text>
+//         <TextInput
+//           style={[styles.input, { height: 80 }]}
+//           placeholder="Enter Service Description"
+//           value={serviceDescription}
+//           onChangeText={setServiceDescription}
+//           multiline
 //         />
 //       </View>
 
@@ -143,6 +210,7 @@
 //     fontWeight: 'bold',
 //     marginBottom: 16,
 //     textAlign: 'center',
+//     color: '#0065C0',
 //   },
 //   inputContainer: {
 //     marginBottom: 16,
@@ -150,6 +218,7 @@
 //   label: {
 //     fontSize: 16,
 //     marginBottom: 8,
+//     color: '#333',
 //   },
 //   input: {
 //     height: 40,
@@ -159,8 +228,18 @@
 //     paddingLeft: 8,
 //     backgroundColor: '#fff',
 //   },
+//   pickerContainer: {
+//     borderWidth: 1,
+//     borderColor: '#ccc',
+//     borderRadius: 8,
+//     backgroundColor: '#fff',
+//   },
+//   picker: {
+//     height: 40,
+//     width: '100%',
+//   },
 //   addImageButton: {
-//     backgroundColor: '#6200ee',
+//     backgroundColor: '#0065C0',
 //     padding: 12,
 //     borderRadius: 8,
 //     alignItems: 'center',
@@ -195,7 +274,7 @@
 //     alignItems: 'center',
 //   },
 //   saveButton: {
-//     backgroundColor: '#6200ee',
+//     backgroundColor: '#0065C0',
 //     padding: 12,
 //     borderRadius: 8,
 //     flex: 1,
@@ -211,20 +290,21 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ref, push, set } from 'firebase/database'; 
-import { getAuth } from 'firebase/auth'; 
+import { ref, push, set } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
 import { db } from '../../firebaseConfig';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
-
-// Import axios for HTTP requests to Cloudinary
 import axios from 'axios';
+import { Picker } from '@react-native-picker/picker';
 
 const AddServices = () => {
   const navigation = useNavigation();
   const [serviceName, setServiceName] = useState('');
   const [price, setPrice] = useState('');
   const [additionalCharges, setAdditionalCharges] = useState('');
+  const [serviceType, setServiceType] = useState('Home Salon');
+  const [serviceDescription, setServiceDescription] = useState('');
   const [images, setImages] = useState([]);
   const auth = getAuth();
   const user = auth.currentUser;
@@ -248,10 +328,10 @@ const AddServices = () => {
     const data = new FormData();
     data.append('file', {
       uri: imageUri,
-      type: 'image/jpeg', // Or based on the image format
+      type: 'image/jpeg',
       name: 'service_image.jpg',
     });
-    data.append('upload_preset', 'Groomify'); // Add your Cloudinary upload preset here
+    data.append('upload_preset', 'Groomify');
 
     try {
       const response = await axios.post('https://api.cloudinary.com/v1_1/der7nytc0/image/upload', data, {
@@ -260,16 +340,16 @@ const AddServices = () => {
         },
       });
 
-      return response.data.secure_url; // This is the URL of the uploaded image in Cloudinary
+      return response.data.secure_url;
     } catch (error) {
       console.error('Cloudinary upload error', error);
       throw new Error('Failed to upload image to Cloudinary');
     }
   };
 
-  // Function to save service to Firebase Realtime Database
+  // Function to save service to Firebase
   const saveService = async () => {
-    if (!serviceName || !price) {
+    if (!serviceName || !price || !serviceDescription) {
       Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
@@ -285,11 +365,16 @@ const AddServices = () => {
       );
 
       const serviceRef = push(ref(db, 'services'));
+      const serviceId = serviceRef.key; // Generate unique service ID
+
       set(serviceRef, {
+        serviceId,
         serviceName,
         price,
         additionalCharges,
-        images: uploadedImageUrls, // Store Cloudinary image URLs here
+        serviceType,
+        serviceDescription,
+        images: uploadedImageUrls,
         ownerId: user.uid,
       })
         .then(() => {
@@ -297,6 +382,8 @@ const AddServices = () => {
           setServiceName('');
           setPrice('');
           setAdditionalCharges('');
+          setServiceType('Home Salon');
+          setServiceDescription('');
           setImages([]);
         })
         .catch((error) => {
@@ -313,7 +400,7 @@ const AddServices = () => {
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
 
-      <Text style={styles.header}>Service Type</Text>
+      <Text style={styles.header}>Add New Service</Text>
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Service Name</Text>
@@ -347,6 +434,30 @@ const AddServices = () => {
         />
       </View>
 
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Service Type</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={serviceType}
+            onValueChange={(itemValue) => setServiceType(itemValue)}
+          >
+            <Picker.Item label="Home Salon" value="Home Salon" />
+            <Picker.Item label="In Salon" value="In Salon" />
+          </Picker>
+        </View>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Service Description</Text>
+        <TextInput
+          style={[styles.input, { height: 80 }]}
+          placeholder="Enter Service Description"
+          value={serviceDescription}
+          onChangeText={setServiceDescription}
+          multiline
+        />
+      </View>
+
       <Text style={styles.label}>Upload Images</Text>
       <TouchableOpacity style={styles.addImageButton} onPress={pickImage}>
         <Text style={styles.addImageButtonText}>+ Add Image</Text>
@@ -370,24 +481,25 @@ const AddServices = () => {
   );
 };
 
-
- const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#EAF4F4',
   },
   backButton: {
     position: 'absolute',
-    top: 16,
-    left: 16,
+    top: 40,
+    left: 8,
     zIndex: 10,
   },
   header: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 30,
     textAlign: 'center',
+    color: '#00665C',
+    marginTop:30,
   },
   inputContainer: {
     marginBottom: 16,
@@ -395,6 +507,7 @@ const AddServices = () => {
   label: {
     fontSize: 16,
     marginBottom: 8,
+    color: '#333',
   },
   input: {
     height: 40,
@@ -404,8 +517,14 @@ const AddServices = () => {
     paddingLeft: 8,
     backgroundColor: '#fff',
   },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    backgroundColor: '#fff',
+  },
   addImageButton: {
-    backgroundColor: '#6200ee',
+    backgroundColor: '#00665C',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
@@ -440,7 +559,7 @@ const AddServices = () => {
     alignItems: 'center',
   },
   saveButton: {
-    backgroundColor: '#6200ee',
+    backgroundColor: '#00665C',
     padding: 12,
     borderRadius: 8,
     flex: 1,
@@ -451,6 +570,5 @@ const AddServices = () => {
     fontSize: 16,
   },
 });
-
 
 export default AddServices;
