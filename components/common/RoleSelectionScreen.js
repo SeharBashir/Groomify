@@ -13,6 +13,7 @@ const RoleSelectionScreen = () => {
       resizeMode="cover" // Ensures the image covers the entire screen
     >
       <View style={styles.container}>
+        
         {/* Groomify Heading */}
         <Text style={styles.groomifyHeading}>Groomify</Text>
 

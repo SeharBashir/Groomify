@@ -1,337 +1,3 @@
-// // // import React, { useState } from 'react';
-// // // import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
-
-// // // const LoginForm = () => {
-// // //   const [email, setEmail] = useState('');
-// // //   const [password, setPassword] = useState('');
-
-// // //   const handleLogin = () => {
-// // //     // You can add your login logic here
-// // //     Alert.alert('Login Info', `Email: ${email}\nPassword: ${password}`);
-// // //   };
-
-// // //   return (
-// // //     <View style={styles.container}>
-// // //       <Text style={styles.title}>Login</Text>
-// // //       <TextInput
-// // //         style={styles.input}
-// // //         placeholder="Email"
-// // //         value={email}
-// // //         onChangeText={setEmail}
-// // //         keyboardType="email-address"
-// // //         autoCapitalize="none"
-// // //       />
-// // //       <TextInput
-// // //         style={styles.input}
-// // //         placeholder="Password"
-// // //         value={password}
-// // //         onChangeText={setPassword}
-// // //         secureTextEntry
-// // //       />
-// // //       <Button title="Login" onPress={handleLogin} />
-// // //     </View>
-// // //   );
-// // // };
-
-// // // const styles = StyleSheet.create({
-// // //   container: {
-// // //     flex: 1,
-// // //     justifyContent: 'center',
-// // //     padding: 16,
-// // //   },
-// // //   title: {
-// // //     fontSize: 24,
-// // //     marginBottom: 20,
-// // //     textAlign: 'center',
-// // //   },
-// // //   input: {
-// // //     height: 40,
-// // //     borderColor: 'gray',
-// // //     borderWidth: 1,
-// // //     marginBottom: 12,
-// // //     paddingHorizontal: 10,
-// // //   },
-// // // });
-
-// // // export default LoginForm;
-
-
-
-
-// // import React, { useState } from "react";
-// // import { StyleSheet, Text, TextInput, View, Button, Alert } from "react-native";
-// // import { signInWithEmailAndPassword } from "firebase/auth";
-// // import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
-
-// // const LoginForm = () => {
-// //   const [email, setEmail] = useState("");
-// //   const [password, setPassword] = useState("");
-
-// //   const handleLogin = async () => {
-// //     if (!email || !password) {
-// //       Alert.alert("Error", "Please enter both email and password!");
-// //       return;
-// //     }
-
-// //     try {
-// //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-// //       const user = userCredential.user;
-// //       Alert.alert("Success login",);
-// //       // Yahan aap navigation ka use kar ke next screen pe le ja sakti hain
-// //     } catch (error) {
-// //       Alert.alert("Error", "Invalid email or password. Please try again!");
-// //     }
-// //   };
-
-// //   return (
-// //     <View style={styles.container}>
-// //       <Text style={styles.title}>Login</Text>
-// //       <TextInput
-// //         style={styles.input}
-// //         placeholder="Email"
-// //         value={email}
-// //         onChangeText={setEmail}
-// //         keyboardType="email-address"
-// //         autoCapitalize="none"
-// //       />
-// //       <TextInput
-// //         style={styles.input}
-// //         placeholder="Password"
-// //         value={password}
-// //         onChangeText={setPassword}
-// //         secureTextEntry
-// //       />
-// //       <Button title="Login" onPress={handleLogin} />
-// //     </View>
-// //   );
-// // };
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     justifyContent: "center",
-// //     padding: 16,
-// //   },
-// //   title: {
-// //     fontSize: 24,
-// //     marginBottom: 20,
-// //     textAlign: "center",
-// //   },
-// //   input: {
-// //     height: 40,
-// //     borderColor: "gray",
-// //     borderWidth: 1,
-// //     marginBottom: 12,
-// //     paddingHorizontal: 10,
-// //   },
-// // });
-
-// // export default LoginForm;
-
-
-
-// // import React, { useState } from "react";
-// // import { StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity, Image } from "react-native";
-// // import { signInWithEmailAndPassword } from "firebase/auth";
-// // import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
-
-// // const LoginForm = ({ navigation }) => {
-// //   const [email, setEmail] = useState("");
-// //   const [password, setPassword] = useState("");
-
-// //   const handleLogin = async () => {
-// //     if (!email || !password) {
-// //       Alert.alert("Error", "Please enter both email and password!");
-// //       return;
-// //     }
-
-// //     try {
-// //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-// //       const user = userCredential.user;
-// //       Alert.alert("Success", "Login successful!");
-// //       navigation.navigate("UserHomeScreen"); // Navigate to HomeScreen
-// //     } catch (error) {
-// //       Alert.alert("Error", "Invalid email or password. Please try again!");
-// //     }
-// //   };
-
-// //   return (
-// //     <View style={styles.container}>
-// //       {/* Displaying the image above the login form */}
-// //       <Image
-// //         source={require("../../assets/animations/login.json")}  // Ensure the image is in the correct folder
-// //         style={styles.image}
-// //       />
-
-// //       <Text style={styles.title}>Login</Text>
-// //       <TextInput
-// //         style={styles.input}
-// //         placeholder="Email"
-// //         value={email}
-// //         onChangeText={setEmail}
-// //         keyboardType="email-address"
-// //         autoCapitalize="none"
-// //       />
-// //       <TextInput
-// //         style={styles.input}
-// //         placeholder="Password"
-// //         value={password}
-// //         onChangeText={setPassword}
-// //         secureTextEntry
-// //       />
-// //       <Button title="Login" onPress={handleLogin} />
-
-// //       {/* Link to SignUp screen */}
-// //       <View style={styles.linkContainer}>
-// //         <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
-// //           <Text style={styles.linkText}>Don't have an account? Sign up</Text>
-// //         </TouchableOpacity>
-// //       </View>
-// //     </View>
-// //   );
-// // };
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     justifyContent: "center",
-// //     padding: 16,
-// //   },
-// //   title: {
-// //     fontSize: 24,
-// //     marginBottom: 20,
-// //     textAlign: "center",
-// //   },
-// //   input: {
-// //     height: 40,
-// //     borderColor: "gray",
-// //     borderWidth: 1,
-// //     marginBottom: 12,
-// //     paddingHorizontal: 10,
-// //   },
-// //   image: {
-// //     width: 150,  // Set width of the image
-// //     height: 150, // Set height of the image
-// //     marginBottom: 30, // Space between the image and form
-// //     alignSelf: "center", // Center the image horizontally
-// //   },
-// //   linkContainer: {
-// //     marginTop: 20,
-// //     alignItems: "center",
-// //   },
-// //   linkText: {
-// //     color: "#007BFF", // Blue color for the link
-// //     fontSize: 16,
-// //   },
-// // });
-
-// // export default LoginForm;
-
-// // adding images
-
-// import React, { useState } from "react";
-// import { StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity, Image, ActivityIndicator } from "react-native";
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../../firebaseConfig"; // Firebase Configuration Import
-
-// const LoginForm = ({ navigation }) => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [loading, setLoading] = useState(false);
-
-//   const handleLogin = async () => {
-//     if (!email || !password) {
-//       Alert.alert("Error", "Please enter both email and password!");
-//       return;
-//     }
-
-//     setLoading(true);
-//     try {
-//       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-//       const user = userCredential.user;
-//       Alert.alert("Success", "Login successful!");
-//       navigation.navigate("UserHomeScreen"); // Navigate to HomeScreen
-//     } catch (error) {
-//       Alert.alert("Error", error.message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Image
-//         source={require("../../assets/animations/login.json")}  // Ensure the image is in the correct folder
-//         style={styles.image}
-//       />
-
-//       <Text style={styles.title}>Login</Text>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Email"
-//         value={email}
-//         onChangeText={setEmail}
-//         keyboardType="email-address"
-//         autoCapitalize="none"
-//       />
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Password"
-//         value={password}
-//         onChangeText={setPassword}
-//         secureTextEntry
-//       />
-//       {loading ? (
-//         <ActivityIndicator size="large" color="#0000ff" />
-//       ) : (
-//         <Button title="Login" onPress={handleLogin} />
-//       )}
-
-//       <View style={styles.linkContainer}>
-//         <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
-//           <Text style={styles.linkText}>Don't have an account? Sign up</Text>
-//         </TouchableOpacity>
-//       </View>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     padding: 16,
-//   },
-//   title: {
-//     fontSize: 24,
-//     marginBottom: 20,
-//     textAlign: "center",
-//   },
-//   input: {
-//     height: 40,
-//     borderColor: "gray",
-//     borderWidth: 1,
-//     marginBottom: 12,
-//     paddingHorizontal: 10,
-//   },
-//   image: {
-//     width: 150,
-//     height: 150,
-//     marginBottom: 30,
-//     alignSelf: "center",
-//   },
-//   linkContainer: {
-//     marginTop: 20,
-//     alignItems: "center",
-//   },
-//   linkText: {
-//     color: "#007BFF",
-//     fontSize: 16,
-//   },
-// });
-
-// export default LoginForm;
-//update styling 
 
 import React, { useState } from "react";
 import {
@@ -340,117 +6,205 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Image,
-  ActivityIndicator
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+  ImageBackground,
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
-import { MaterialIcons } from "@expo/vector-icons"; // Import icons
+import { MaterialIcons } from "@expo/vector-icons";
 
 const LoginForm = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      alert("Please enter both email and password!");
-      return;
+    setEmailError("");
+    setPasswordError("");
+
+    let isValid = true;
+
+    if (!email) {
+      setEmailError("Email is required");
+      isValid = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Invalid email format (e.g., user@gmail.com)");
+      isValid = false;
     }
+
+    if (!password) {
+      setPasswordError("Password is required");
+      isValid = false;
+    } else if (!isStrongPassword(password)) {
+      setPasswordError("Password must be at least 8 characters and include a mix of uppercase and lowercase letters, numbers, and symbols.");
+      isValid = false;
+    }
+
+    if (!isValid) return;
 
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful!");
       navigation.navigate("UserHomeScreen");
     } catch (error) {
-      alert(error.message);
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        Alert.alert("Invalid email or password");
+      } else {
+        Alert.alert(error.message);
+      }
     } finally {
       setLoading(false);
     }
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) && email.endsWith("@gmail.com");
+  };
+
+  const isStrongPassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-
-      <View style={styles.inputContainer}>
-        <MaterialIcons name="email" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-      </View>
-      
-      <View style={styles.inputContainer}>
-        <MaterialIcons name="lock" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-      </View>
-      
-      {loading ? (
-        <ActivityIndicator size="large" color="#20B2AA" />
-      ) : (
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+    <ImageBackground source={require("../../assets/images/sinpic.jpg")} style={styles.backgroundImage}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.overlay}>
+        
+        {/* Back Button */}
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back" size={28} color="#fff" />
         </TouchableOpacity>
-      )}
 
-      <View style={styles.linkContainer}>
-        <Text style={styles.text}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
-          <Text style={styles.linkText}>Sign up</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        <View style={styles.formContainer}>
+          <Text style={styles.title}>Login</Text>
+
+          <View style={styles.inputContainer}>
+            <MaterialIcons name="email" size={24} color="#666" style={styles.icon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+          </View>
+          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+
+          <View style={styles.inputContainer}>
+            <MaterialIcons name="lock" size={24} color="#666" style={styles.icon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+            />
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <MaterialIcons name={showPassword ? "visibility" : "visibility-off"} size={24} color="#666" style={styles.passwordIcon} />
+            </TouchableOpacity>
+          </View>
+          {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+
+          <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>  
+            <Text style={styles.forgotPassword}>Forgot Password?</Text>
+          </TouchableOpacity>
+
+          {loading ? (
+            <ActivityIndicator size="large" color="#00665C" />
+          ) : (
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+          )}
+
+          <View style={styles.linkContainer}>
+            <Text style={styles.text}>Don't have an account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
+              <Text style={styles.linkText}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+  },
+  overlay: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#fff",
     padding: 20,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  backButton: {
+    position: "absolute",
+    top: 40,
+    left: 20,
+    zIndex: 10,
+  },
+  formContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    borderRadius: 10,
+    padding: 25,
+    width: "90%",
+    maxWidth: 400,
+    alignSelf: "center",
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 30,
-    color: "#333",
+    marginBottom: 20,
+    color: "#00665C",
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "gray",
+    marginBottom: 12,
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
     borderRadius: 8,
     paddingHorizontal: 10,
-    marginBottom: 12,
   },
   icon: {
     marginRight: 10,
+    color: "#666",
+  },
+  passwordIcon: {
+    marginLeft: 10,
   },
   input: {
     flex: 1,
-    height: 40,
+    paddingVertical: 10,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
+  },
+  forgotPassword: {
+    color: "#00665C",
+    textAlign: "right",
+    fontSize: 14,
+    marginBottom: 15,
+    fontWeight: "bold",
   },
   button: {
     backgroundColor: "#00665C",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
@@ -464,12 +218,19 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: "#333",
+    color: "black",
   },
   linkText: {
     fontSize: 16,
-    color: "#20B2AA",
+    color: "#00665C",
     fontWeight: "bold",
+  },
+  overlay: { 
+    backgroundColor: 'rgba(0,0,0,0.5)', 
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center",
+    padding: 20 
   },
 });
 
