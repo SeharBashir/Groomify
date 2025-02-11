@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import { getDatabase, ref, onValue, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
@@ -22,6 +23,8 @@ const Profile = () => {
   const [ownerName, setOwnerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [logo, setLogo] = useState(null);
+  const [password, setPassword] = useState("");  // New password state
+  const [confirmPassword, setConfirmPassword] = useState(""); // Confirm password state
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -43,6 +46,7 @@ const Profile = () => {
               phoneNumber: data[key].phoneNumber,
               salonLogo: data[key].salonLogo,
               ownerId: data[key].ownerId,
+              password: data[key].password,  // Password field fetched from database
             }))
             .find((salon) => salon.ownerId === user.uid); // Filter by logged-in user ID
 
@@ -52,6 +56,7 @@ const Profile = () => {
             setOwnerName(salonData.ownerName);
             setPhoneNumber(salonData.phoneNumber);
             setLogo(salonData.salonLogo);
+            setPassword(salonData.password);  // Set password if available
           } else {
             console.log("No salon data found for this user.");
           }
@@ -75,6 +80,11 @@ const Profile = () => {
       return;
     }
 
+    if (password && password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
     try {
       const updatedData = {
         salonName: serviceName,
@@ -82,6 +92,10 @@ const Profile = () => {
         phoneNumber: phoneNumber,
         salonLogo: logo,
       };
+
+      if (password) {
+        updatedData.password = password; // Update password if provided
+      }
 
       const db = getDatabase();
       const salonRef = ref(db, "salons/" + salon.id);
@@ -184,10 +198,30 @@ const Profile = () => {
             keyboardType="numeric"
           />
 
+          {/* Show password fields only if editable */}
           {editable && (
-            <TouchableOpacity onPress={handleUpdateProfile} style={styles.updateButton}>
-              <Text style={styles.updateText}>Update Profile</Text>
-            </TouchableOpacity>
+            <>
+              <TextInput
+                style={styles.input}
+                value={password}
+                onChangeText={setPassword}
+                editable={editable}
+                placeholder="New Password"
+                secureTextEntry={true}
+              />
+              <TextInput
+                style={styles.input}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                editable={editable}
+                placeholder="Confirm Password"
+                secureTextEntry={true}
+              />
+
+              <TouchableOpacity onPress={handleUpdateProfile} style={styles.updateButton}>
+                <Text style={styles.updateText}>Update Profile</Text>
+              </TouchableOpacity>
+            </>
           )}
         </View>
       )}
