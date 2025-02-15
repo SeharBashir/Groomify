@@ -27,6 +27,7 @@ import Profile from './components/salons/Profile'
 import Chatbot from './components/users/Chatbot'
 import ServiceDetails from './components/salons/ServiceDetails';
 import UpdateServiceScreen from './components/salons/UpdataServiceScreen';
+// import Appointments from './components/salons/Appointments';
 
 
 
@@ -62,6 +63,8 @@ const App = ({email,setEmail,password,setPassword}) => {
         <Stack.Screen name="Chatbot" component={Chatbot} /> 
         <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
         <Stack.Screen name="UpdateServiceScreen" component={UpdateServiceScreen} />
+        {/* <Stack.Screen name="Appointments" component={Appointments} /> */}
+        
 
 
 
