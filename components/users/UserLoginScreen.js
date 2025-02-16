@@ -420,7 +420,7 @@ const LoginForm = ({ navigation }) => {
       }
 
       // Navigate to the home screen if successful
-      navigation.navigate("UserHomeScreen");
+      navigation.navigate("BeautyQuestionnaire");
     } catch (error) {
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         Alert.alert("Invalid email or password");
