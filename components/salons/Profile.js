@@ -334,6 +334,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard,
 } from "react-native";
 import { getDatabase, ref, onValue, update } from "firebase/database";
 import { getAuth, updatePassword, updateEmail, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
@@ -495,94 +496,48 @@ const Profile = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Salon Profile</Text>
-      <TouchableOpacity onPress={() => setEditable(!editable)} style={styles.editIcon}>
-        <Ionicons
-          name={editable ? "close" : "pencil"}
-          size={30}
-          color="#00665C"
-        />
-      </TouchableOpacity>
-
-      {salon && (
-        <View style={styles.card}>
-          {logo ? (
-            <Image source={{ uri: logo }} style={styles.image} />
-          ) : (
-            <Text style={styles.imagePlaceholder}>No Logo</Text>
-          )}
-          <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
-            <Text style={styles.uploadText}>Upload New Logo</Text>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+          <Text style={styles.title}>Salon Profile</Text>
+  
+          <TouchableOpacity onPress={() => setEditable(!editable)} style={styles.editIcon}>
+            <Ionicons name={editable ? "close" : "pencil"} size={30} color="#00665C" />
           </TouchableOpacity>
-
-          <TextInput
-            style={styles.input}
-            value={serviceName}
-            onChangeText={setServiceName}
-            editable={editable}
-            placeholder="Salon Name"
-          />
-          <TextInput
-            style={styles.input}
-            value={ownerName}
-            onChangeText={setOwnerName}
-            editable={editable}
-            placeholder="Owner Name"
-          />
-          <TextInput
-            style={styles.input}
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            editable={editable}
-            placeholder="Phone Number"
-            keyboardType="numeric"
-          />
-
-          {/* Editable Email Field */}
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            editable={editable}
-            placeholder="Email"
-            keyboardType="email-address"
-          />
-
-          {/* Show current password and update fields only if editable */}
-          {editable && (
-            <>
-              <TextInput
-                style={styles.input}
-                value={currentPassword}
-                onChangeText={setCurrentPassword}
-                placeholder="Current Password (for verification)"
-                secureTextEntry={true}
-              />
-
-              <TextInput
-                style={styles.input}
-                value={password}
-                onChangeText={setPassword}
-                placeholder="New Password"
-                secureTextEntry={true}
-              />
-              <TextInput
-                style={styles.input}
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                placeholder="Confirm Password"
-                secureTextEntry={true}
-              />
-
-              <TouchableOpacity onPress={handleUpdateProfile} style={styles.updateButton}>
-                <Text style={styles.updateText}>Update Profile</Text>
+  
+          {salon && (
+            <View style={styles.card}>
+              {logo ? (
+                <Image source={{ uri: logo }} style={styles.image} />
+              ) : (
+                <Text style={styles.imagePlaceholder}>No Logo</Text>
+              )}
+  
+              <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+                <Text style={styles.uploadText}>Upload New Logo</Text>
               </TouchableOpacity>
-            </>
+  
+              <TextInput style={styles.input} value={serviceName} onChangeText={setServiceName} editable={editable} placeholder="Salon Name" />
+              <TextInput style={styles.input} value={ownerName} onChangeText={setOwnerName} editable={editable} placeholder="Owner Name" />
+              <TextInput style={styles.input} value={phoneNumber} onChangeText={setPhoneNumber} editable={editable} placeholder="Phone Number" keyboardType="numeric" />
+              <TextInput style={styles.input} value={email} onChangeText={setEmail} editable={editable} placeholder="Email" keyboardType="email-address" />
+  
+              {editable && (
+                <>
+                  <TextInput style={styles.input} value={currentPassword} onChangeText={setCurrentPassword} placeholder="Current Password (for verification)" secureTextEntry={true} />
+                  <TextInput style={styles.input} value={password} onChangeText={setPassword} placeholder="New Password" secureTextEntry={true} />
+                  <TextInput style={styles.input} value={confirmPassword} onChangeText={setConfirmPassword} placeholder="Confirm Password" secureTextEntry={true} />
+  
+                  <TouchableOpacity onPress={handleUpdateProfile} style={styles.updateButton}>
+                    <Text style={styles.updateText}>Update Profile</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
           )}
-        </View>
-      )}
-    </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -604,6 +559,78 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
   },
+  container: {
+    flex: 1,
+    backgroundColor: "#f8f8f8",
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#00665C",
+  },
+  editIcon: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+  },
+  card: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 10,
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  imagePlaceholder: {
+    fontSize: 18,
+    color: "#777",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  uploadButton: {
+    backgroundColor: "#00665C",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  uploadText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  input: {
+    height: 40,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingLeft: 8,
+    marginBottom: 15,
+    backgroundColor: "#fff",
+    fontSize: 16,
+  },
+  updateButton: {
+    backgroundColor: "#00665C",
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 20,
+    alignItems: "center",
+  },
+  updateText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+
   card: {
     backgroundColor: "#fff",
     padding: 20,

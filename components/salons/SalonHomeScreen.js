@@ -80,6 +80,10 @@ const SalonHomeScreen = ({ route, navigation }) => {
           <Icon name="account" size={40} color="#FFFFFF" />
           <Text style={styles.cardText}>Profile</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Feedback')}>
+    <Icon name="message-text" size={40} color="#FFFFFF" />
+    <Text style={styles.cardText}>Feedback</Text>
+  </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -112,8 +116,8 @@ const SalonTabNavigator = ({ route }) => (
         };
         return <Icon name={icons[route.name]} size={size} color={color} />;
       },
-      tabBarActiveTintColor: '#4CAF50',
-      tabBarInactiveTintColor: 'gray',
+      tabBarActiveTintColor: '#00665C',
+      tabBarInactiveTintColor: 'black',
       headerShown: false,
     })}
   >
@@ -138,11 +142,11 @@ const AppDrawer = ({ route }) => (
 export default AppDrawer;
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, backgroundColor: '#EAF4F4', padding: 20 },
+  container: { flex: 1, backgroundColor: '#EAF4F4', padding: 20 },
   header: { alignItems: 'center', marginBottom: 20 },
-  salonName: { fontSize: 24, fontWeight: 'bold', marginTop: 10 },
+  salonName: { fontSize: 40, fontWeight: 'bold', marginTop: 10 ,color:"#00665C"},
   logo: { width: 180, height: 180, borderRadius: 100, borderWidth: 10, borderColor: '#00665C' },
-  optionsContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  optionsContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' },
   card: {
     width: '48%',
     backgroundColor: '#00665C',
@@ -153,8 +157,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowRadius: 10,
+    elevation: 10,
+    
   },
   cardText: { fontSize: 16, fontWeight: 'bold', color: '#FFFFFF', marginTop: 10 },
   screenContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },

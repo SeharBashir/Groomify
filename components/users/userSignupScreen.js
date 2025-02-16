@@ -87,7 +87,8 @@ const UserSignupScreen = () => {
 
             <View style={styles.formContainer}>
               <Text style={styles.heading}>Sign Up</Text>
-              <Text style={styles.subHeading}>Signing up as: {role.toUpperCase()}</Text>
+              {role && <Text style={styles.subHeading}>Signing up as: {role.toUpperCase()}</Text>}
+
 
               <View style={styles.inputContainer}>
                 <Icon name="account" size={24} color="#555" style={styles.icon} />
