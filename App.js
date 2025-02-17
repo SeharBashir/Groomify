@@ -12,6 +12,8 @@ import UserSignupScreen from './components/users/userSignupScreen';
 import UserLoginScreen from './components/users/UserLoginScreen'
 import ForgotPassword from './components/users/ForgotPassword'
 import UserHomeScreen from './components/users/UserHomeScreen'
+import MaleHomeScreen from './components/users/MaleHomeScreen'
+import Haircut from './components/users/Haircut'
 import UserProfile from './components/users/UserProfile'
 import SalonList from './components/users/SalonsList'
 import SalonsScreen from './components/users/SalonsScreen'
@@ -50,6 +52,8 @@ const App = ({email,setEmail,password,setPassword}) => {
         <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> 
         <Stack.Screen name="UserHomeScreen" component={UserHomeScreen} />
+        <Stack.Screen name="MaleHomeScreen" component={MaleHomeScreen} />
+        <Stack.Screen name="Haircut" component={Haircut} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
         <Stack.Screen name="SalonSignupScreen" component={SalonSignupScreen} />
         <Stack.Screen name="SalonLoginForm" component={SalonLoginForm} />
