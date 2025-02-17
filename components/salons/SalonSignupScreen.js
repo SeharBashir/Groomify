@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, Image, KeyboardAvoidingView } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../../firebaseConfig';
 import { getDatabase, ref, set } from 'firebase/database';
@@ -9,6 +9,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as DocumentPicker from 'expo-document-picker';
+
 
 const SalonSignupScreen = ({ navigation, route }) => {
   const [salonName, setSalonName] = useState('');
@@ -20,10 +21,14 @@ const SalonSignupScreen = ({ navigation, route }) => {
   const [salonLogo, setSalonLogo] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
+ 
+  
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
   const [showStartTimePicker, setShowStartTimePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
+  
+
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -137,7 +142,8 @@ const SalonSignupScreen = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+    <KeyboardAvoidingView  style={{ flex: 1 }}>
+    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled"  nestedScrollEnabled={true}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons name="arrow-back" size={24} color="black" style={styles.backIcon} />
       </TouchableOpacity>
@@ -181,15 +187,28 @@ const SalonSignupScreen = ({ navigation, route }) => {
         />
       </View>
 
-      <DropDownPicker
-        open={dropDownOpen}
-        setOpen={setDropDownOpen}
-        items={[{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'Female' }] }
-        placeholder="Select Salon Type"
-        value={salonType}
-        setValue={setSalonType}
-        containerStyle={{ marginBottom: dropDownOpen ? 200 : 10 }}
-      />
+      <View style={styles.dropdownContainer}>
+  <Text style={styles.label}>Select Salon Type</Text>
+  <View style={styles.optionsContainer}>
+    <TouchableOpacity 
+      style={[styles.optionButton, salonType === 'Male' && styles.selectedOption]} 
+      onPress={() => setSalonType('Male')}
+    >
+      <Text style={[styles.optionText, salonType === 'Male' && styles.selectedText]}>Male</Text>
+    </TouchableOpacity>
+    
+    <TouchableOpacity 
+      style={[styles.optionButton, salonType === 'Female' && styles.selectedOption]} 
+      onPress={() => setSalonType('Female')}
+    >
+      <Text style={[styles.optionText, salonType === 'Female' && styles.selectedText]}>Female</Text>
+    </TouchableOpacity>
+  </View>
+</View>
+
+
+
+
 
       <TouchableOpacity onPress={() => setShowStartTimePicker(true)} style={styles.input}>
         <Text>{startTime ? startTime.toLocaleTimeString() : 'Select Start Time'}</Text>
@@ -223,12 +242,13 @@ const SalonSignupScreen = ({ navigation, route }) => {
         <Text style={styles.buttonText1}>Register Salon</Text>
       </TouchableOpacity>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { padding: 20, backgroundColor: '#EAF4F4' },
-  title: { fontSize: 30, fontWeight: 'bold', marginBottom: 25, textAlign: 'center' ,color:'#00665C'},
+  title: { fontSize: 30, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' ,color:'#00665C'},
   input: { height: 50, borderColor: '#ccc', borderWidth: 1, borderRadius: 10, marginBottom: 15, paddingLeft: 15, fontSize: 16, backgroundColor: '#fff', color: 'black' },
   uploadButton: { backgroundColor: '#fff', padding: 12, borderRadius: 10, alignItems: 'center', marginBottom: 15, borderWidth: 2 },
   button: { backgroundColor: '#00665C', paddingVertical: 12, borderRadius: 10, alignItems: 'center' },
@@ -239,7 +259,52 @@ const styles = StyleSheet.create({
   imageText: { marginTop: 10, fontSize: 14, color: '#333' },
   passwordContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 15, borderColor: '#ccc', borderWidth: 1, borderRadius: 10, paddingLeft: 15, paddingRight: 10 },
   passwordInput: { flex: 1, height: 50, fontSize: 16, backgroundColor: '#fff' },
-  backIcon: { marginBottom: 15 },
+  backIcon: { marginBottom: 0,marginTop:20 },
+  dropdownContainer: { 
+    marginBottom: 20, 
+    paddingHorizontal: 10 
+  },
+  label: { 
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    marginBottom: 10, 
+    color: '#00665C' 
+  },
+  optionsContainer: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    backgroundColor: '#EAF4F4', 
+    padding: 10, 
+    borderRadius: 10 
+  },
+  optionButton: {
+    flex: 1,
+    paddingVertical: 12,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    alignItems: 'center',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3, // Android shadow
+  },
+  selectedOption: { 
+    borderColor: '#00665C', 
+    backgroundColor: '#D0F0E0' 
+  },
+  optionText: { 
+    fontSize: 16, 
+    color: '#333', 
+    fontWeight: 'bold' 
+  },
+  selectedText: { 
+    color: '#00665C' 
+  },
+
 });
 
 

@@ -744,7 +744,7 @@ const LoginForm = ({ navigation }) => {
 
           <View style={styles.linkContainer}>
             <Text style={styles.text}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("UserSignupScreen")}>
+            <TouchableOpacity onPress={() => navigation.navigate("userSignupScreen")}>
               <Text style={styles.linkText}>Sign up</Text>
             </TouchableOpacity>
           </View>

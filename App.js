@@ -8,7 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './components/common/SplashScreen';
 import OnboardingScreen from './components/common/OnboardingScreen';
 import RoleSelectionScreen from './components/common/RoleSelectionScreen';
-import UserSignupScreen from './components/users/userSignupScreen';
+
+import userSignupScreen from './components/users/userSignupScreen';
 import UserLoginScreen from './components/users/UserLoginScreen'
 import ForgotPassword from './components/users/ForgotPassword'
 import UserHomeScreen from './components/users/UserHomeScreen'
@@ -48,7 +49,7 @@ const App = ({email,setEmail,password,setPassword}) => {
          <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         <Stack.Screen name="RoleSelectionScreen" component={RoleSelectionScreen} />
-        <Stack.Screen name="UserSignupScreen" component={UserSignupScreen} />
+        <Stack.Screen name="userSignupScreen" component={userSignupScreen} />
         <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> 
         <Stack.Screen name="UserHomeScreen" component={UserHomeScreen} />

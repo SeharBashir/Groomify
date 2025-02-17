@@ -120,7 +120,7 @@ const RoleSelectionScreen = () => {
 
   const handleRoleSelection = (role) => {
     setSelectedRole(role);
-    navigation.navigate(role === 'user' ? 'UserSignupScreen' : 'SalonSignupScreen', { role });
+    navigation.navigate(role === 'user' ? 'UserLoginScreen' : 'SalonLoginForm', { role });
   };
 
   return (
