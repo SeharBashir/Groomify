@@ -14,6 +14,13 @@ import ForgotPassword from './components/users/ForgotPassword'
 import UserHomeScreen from './components/users/UserHomeScreen'
 import MaleHomeScreen from './components/users/MaleHomeScreen'
 import Haircut from './components/users/Haircut'
+import Nails from './components/users/Nails'
+import Facial from './components/users/Facial'
+import Coloring from './components/users/Coloring'
+import Waxing from './components/users/Waxing'
+import Makeup from './components/users/Makeup'
+import Massage from './components/users/Massage'
+import Spa from './components/users/Spa'
 import UserProfile from './components/users/UserProfile'
 import SalonList from './components/users/SalonsList'
 import SalonsScreen from './components/users/SalonsScreen'
@@ -54,9 +61,16 @@ const App = ({email,setEmail,password,setPassword}) => {
         <Stack.Screen name="UserHomeScreen" component={UserHomeScreen} />
         <Stack.Screen name="MaleHomeScreen" component={MaleHomeScreen} />
         <Stack.Screen name="Haircut" component={Haircut} />
+        <Stack.Screen name="Nails" component={Nails} />
+        <Stack.Screen name="Facial" component={Facial} />
+        <Stack.Screen name="Coloring" component={Coloring} />
+        <Stack.Screen name="Waxing" component={Waxing} />
+        <Stack.Screen name="Makeup" component={Makeup} />
+        <Stack.Screen name="Massage" component={Massage} />
+        <Stack.Screen name="Spa" component={Spa} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
-        <Stack.Screen name="SalonSignupScreen" component={SalonSignupScreen} />
         <Stack.Screen name="SalonLoginForm" component={SalonLoginForm} />
+        <Stack.Screen name="SalonSignupScreen" component={SalonSignupScreen} />
         <Stack.Screen name="SalonHomeScreen" component={SalonHomeScreen} />
         <Stack.Screen name="AddServices" component={AddServices} />
         <Stack.Screen name="MyServices" component={MyServices} />

@@ -47,6 +47,7 @@ const SalonList = () => {
         <Text style={styles.salonName}>{item.salonName}</Text>
         <Text style={styles.salonAddress}>{item.address}</Text>
       </View>
+      
     </TouchableOpacity>
   );
 

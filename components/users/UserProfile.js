@@ -2000,7 +2000,7 @@ const UserProfile = () => {
 
       {/* Bottom Navigation Bar */}
       <View style={styles.bottomNavigation}>
-        <TouchableOpacity style={styles.bottomNavItem} onPress={() => navigation.navigate('HomeScreen')}>
+        <TouchableOpacity style={styles.bottomNavItem} onPress={() => navigation.navigate('UserHomeScreen')}>
           <Image source={require('../../assets/images/home.png')} style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavText}>Home</Text>
         </TouchableOpacity>
@@ -2010,10 +2010,10 @@ const UserProfile = () => {
           <Text style={styles.bottomNavText}>Salon</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomNavItem} onPress={() => navigation.navigate('BookingScreen')}>
+        {/* <TouchableOpacity style={styles.bottomNavItem} onPress={() => navigation.navigate('BookingScreen')}>
           <Image source={require('../../assets/images/booking.png')} style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavText}>Booking</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity style={styles.bottomNavItem} onPress={() => navigation.navigate('Chatbot')}>
           <Image source={require('../../assets/images/chatbot.png')} style={styles.bottomNavIcon} />
