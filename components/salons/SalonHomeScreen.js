@@ -71,7 +71,7 @@ const SalonHomeScreen = ({ route, navigation }) => {
           <Text style={styles.cardText}>My Services</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Appointments')}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('AppointmentsScreen')}>
           <Icon name="calendar-check" size={40} color="#FFFFFF" />
           <Text style={styles.cardText}>Appointments</Text>
         </TouchableOpacity>

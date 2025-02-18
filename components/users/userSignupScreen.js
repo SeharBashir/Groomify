@@ -33,7 +33,7 @@ const UserSignupScreen = () => {
 
   const handleSignUp = async () => {
     if (!fullName || !email || !password || !confirmPassword || !role) {
-      Alert.alert("Error", "All fields are required, including role!");
+      Alert.alert("Error", "All fields are required to fill.");
       return;
     }
 
@@ -86,8 +86,8 @@ const UserSignupScreen = () => {
             </TouchableOpacity>
 
             <View style={styles.formContainer}>
-              <Text style={styles.heading}>Sign Up</Text>
-              {role && <Text style={styles.subHeading}>Signing up as: {role.toUpperCase()}</Text>}
+              {/* <Text style={styles.heading}>Sign Up</Text> */}
+              {role && <Text style={styles.heading}>SIGN UP AS : {role.toUpperCase()}</Text>}
 
 
               <View style={styles.inputContainer}>
