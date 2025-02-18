@@ -153,21 +153,21 @@ const MaleHomeScreen = () => {
       <View style={styles.recommendationsContainer}>
         <View style={styles.recommendationItem}>
           <Image
-            source={require("../../assets/images/haircuts.jpg")}
+            source={require("../../assets/images/malehaircut7.jpg")}
             style={styles.recommendationImage}
           />
           <Text>Haircuts</Text>
         </View>
         <View style={styles.recommendationItem}>
           <Image
-            source={require("../../assets/images/massages.jpg")}
+            source={require("../../assets/images/maleshave7.jpg")}
             style={styles.recommendationImage}
           />
           <Text>Facial</Text>
         </View>
         <View style={styles.recommendationItem}>
           <Image
-            source={require("../../assets/images/nailcare.jpg")}
+            source={require("../../assets/images/malescalp.jpg")}
             style={styles.recommendationImage}
           />
           <Text>Nail care</Text>
@@ -178,7 +178,7 @@ const MaleHomeScreen = () => {
       <View style={styles.serviceOptionsContainer}>
         <TouchableOpacity style={styles.serviceOption}>
           <Image
-            source={require("../../assets/images/haircut.png")}
+            source={require("../../assets/images/malecut7.jpeg")}
             style={styles.serviceIcon}
           />
           <Text style={styles.serviceOptionText}>Haircut</Text>
@@ -188,21 +188,21 @@ const MaleHomeScreen = () => {
             source={require("../../assets/images/nails.png")}
             style={styles.serviceIcon}
           />
-          <Text style={styles.serviceOptionText}>Nails</Text>
+          <Text style={styles.serviceOptionText}>Massage Services</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.serviceOption}>
           <Image
-            source={require("../../assets/images/facial.png")}
+            source={require("../../assets/images/malebeard7.jpeg")}
             style={styles.serviceIcon}
           />
-          <Text style={styles.serviceOptionText}>Facial</Text>
+          <Text style={styles.serviceOptionText}>Beard Grooming</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.serviceOption}>
           <Image
             source={require("../../assets/images/haircolor.png")}
             style={styles.serviceIcon}
           />
-          <Text style={styles.serviceOptionText}>Coloring</Text>
+          <Text style={styles.serviceOptionText}>Facial Treatments</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.serviceOption}>
           <Image
@@ -211,27 +211,15 @@ const MaleHomeScreen = () => {
           />
           <Text style={styles.serviceOptionText}>Spa</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.serviceOption}>
           <Image
-            source={require("../../assets/images/waxing.png")}
-            style={styles.serviceIcon}
-          />
-          <Text style={styles.serviceOptionText}>Waxing</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.serviceOption}>
-          <Image
-            source={require("../../assets/images/makeup.png")}
+            source={require("../../assets/images/malemakeup7.jpeg")}
             style={styles.serviceIcon}
           />
           <Text style={styles.serviceOptionText}>Makeup</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.serviceOption}>
-          <Image
-            source={require("../../assets/images/massage.png")}
-            style={styles.serviceIcon}
-          />
-          <Text style={styles.serviceOptionText}>Massage</Text>
-        </TouchableOpacity>
+       
       </View>
       <Text style={styles.salonsYouFollowText}></Text>
       <View style={styles.salonsContainer}>

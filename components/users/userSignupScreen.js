@@ -32,8 +32,8 @@ const UserSignupScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSignUp = async () => {
-    if (!fullName || !email || !password || !confirmPassword || !role) {
-      Alert.alert("Error", "All fields are required, including role!");
+    if (!fullName || !email || !password || !confirmPassword ) {
+      Alert.alert("Error", "All fields are required, ");
       return;
     }
 
