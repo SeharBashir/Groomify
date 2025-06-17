@@ -145,10 +145,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#EAF4F4', padding: 20 },
   header: { alignItems: 'center', marginBottom: 20 },
   salonName: { fontSize: 40, fontWeight: 'bold', marginTop: 10 ,color:"#00665C"},
-  logo: { width: 180, height: 180, borderRadius: 100, borderWidth: 10, borderColor: '#00665C' },
+  logo: { width: 250, height: 200, borderRadius: 80, borderWidth: 10, borderColor: '#00665C' },
   optionsContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' },
   card: {
     width: '48%',
+    height:'27%',
     backgroundColor: '#00665C',
     padding: 20,
     borderRadius: 15,

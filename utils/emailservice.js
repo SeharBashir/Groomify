@@ -18,34 +18,29 @@
 //     console.error("Email sending failed:", error);
 //   }
 // };
+import emailjs from "emailjs-com";
+
+const SERVICE_ID = "service_3ulxod5"; // Replace with your EmailJS Service ID
+const TEMPLATE_ID = "template_6lot4he"; // Replace with your EmailJS Template ID
+const PUBLIC_KEY = "6dynyltSEqhkmLhKi"; // Replace with your EmailJS Public Key (not User ID)
+
 export const sendEmail = async ({ to, subject, message }) => {
-    try {
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          service_id: "service_3ulxod5", // Replace with your EmailJS service ID
-          template_id: "template_6lot4he", // Replace with your EmailJS template ID
-          user_id: "6dynyltSEqhkmLhKi", // Replace with your EmailJS user ID
-          template_params: {
-            to_email: to,
-            subject: subject,
-            message: message,
-          },
-        }),
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        console.log("Email sent successfully!", data);
-      } else {
-        console.error("Email sending failed:", data);
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-    }
-  };
-  
+  try {
+    const templateParams = {
+      to_email: to,  // Dynamically setting recipient email
+      from_name: "Groomify", // Your app name or sender name
+      subject: subject,
+      message: message,
+      reply_to: "yourreply@email.com", // Optional: Set a reply email
+    };
+
+    const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+    
+    console.log("Email sent successfully!", response.status, response.text);
+    return { success: true, message: "Email sent successfully!" };
+
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    return { success: false, message: "Failed to send email!" };
+  }
+};

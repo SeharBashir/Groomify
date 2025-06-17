@@ -1,11 +1,11 @@
 // // import React, { useState, useEffect, useMemo } from 'react';
-// // import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+// // import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 // // import { db } from '../../firebaseConfig';
 // // import { ref, onValue } from 'firebase/database';
 // // import { useNavigation } from '@react-navigation/native';
 // // import { Ionicons } from '@expo/vector-icons';
 
-// // const Haircuts = () => {
+// // const Nails = () => {
 // //   const navigation = useNavigation();
 // //   const [services, setServices] = useState([]);
 // //   const [salons, setSalons] = useState({});
@@ -34,13 +34,14 @@
 // //             ...servicesData[key],
 // //           }));
 
-// //           const haircutServices = servicesArray.filter(
+// //           // ✅ Filter Nail Services
+// //           const nailServices = servicesArray.filter(
 // //             (service) =>
 // //               service.serviceName &&
-// //               service.serviceName.trim().toLowerCase() === 'haircut'
+// //               service.serviceName.trim().toLowerCase().includes('nail')
 // //           );
 
-// //           setServices(haircutServices);
+// //           setServices(nailServices);
 // //         } else {
 // //           setServices([]);
 // //         }
@@ -59,20 +60,24 @@
 // //     };
 // //   }, []);
 
+// //   // ✅ Compute updated services dynamically instead of setting state
 // //   const updatedServices = useMemo(() => {
+// //     if (services.length === 0 || Object.keys(salons).length === 0) {
+// //       return services;
+// //     }
+
 // //     return services.map((service) => {
-// //       const matchedSalon = Object.entries(salons).find(
-// //         ([salonId, salon]) => salon.ownerId === service.ownerId
+// //       const matchedSalon = Object.values(salons).find(
+// //         (salon) => salon.ownerId === service.ownerId
 // //       );
 
 // //       return {
 // //         ...service,
-// //         ownerId: service.ownerId || (matchedSalon ? matchedSalon[1].ownerId : null),
-// //         salonId: matchedSalon ? matchedSalon[0] : null,
-// //         salonName: matchedSalon ? matchedSalon[1].salonName : 'Unknown',
+// //         salonId: matchedSalon ? matchedSalon.id : null,
+// //         salonName: matchedSalon ? matchedSalon.salonName : 'Unknown',
 // //       };
 // //     });
-// //   }, [services, salons]);
+// //   }, [services, salons]); // ✅ Dependencies include both services and salons
 
 // //   const renderServiceItem = ({ item }) => (
 // //     <View style={styles.card}>
@@ -91,20 +96,15 @@
 // //         </Text>
 // //       </View>
 
+// //       {/* ✅ Updated Navigation with Salon Info */}
 // //       <TouchableOpacity
 // //         style={styles.bookNowButton}
-// //         onPress={() => {
-// //           console.log('Navigating to BookService with:', item);
-// //           if (!item.ownerId) {
-// //             console.error('❌ Missing owner ID:', item);
-// //             Alert.alert('Error', 'Owner ID is missing.');
-// //             return;
-// //           }
+// //         onPress={() =>
 // //           navigation.navigate('BookService', {
-// //             service: { ...item, ownerId: item.ownerId },
-// //             salon: { id: item.salonId, salonName: item.salonName, ownerId: item.ownerId },
-// //           });
-// //         }}
+// //             service: item,
+// //             salon: { id: item.salonId, salonName: item.salonName }, // Pass salon info
+// //           })
+// //         }
 // //       >
 // //         <Text style={styles.bookNowText}>Book Now</Text>
 // //       </TouchableOpacity>
@@ -116,7 +116,7 @@
 // //       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
 // //         <Ionicons name="arrow-back" size={24} color="#00665C" />
 // //       </TouchableOpacity>
-// //       <Text style={styles.header}>Haircut Services</Text>
+// //       <Text style={styles.header}>Nail Services</Text>
 
 // //       {loading ? (
 // //         <ActivityIndicator size="large" color="#00665C" style={{ marginTop: 20 }} />
@@ -127,7 +127,7 @@
 // //           keyExtractor={(item) => item.id}
 // //         />
 // //       ) : (
-// //         <Text style={styles.emptyMessage}>No Haircut services available.</Text>
+// //         <Text style={styles.emptyMessage}>No Nail services available.</Text>
 // //       )}
 // //     </View>
 // //   );
@@ -175,42 +175,26 @@
 // //   },
 // // });
 
-// // export default Haircuts;
-// import React, { useState, useEffect, useMemo } from 'react';
-// import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
-// import { db } from '../../firebaseConfig';
-// import { ref, onValue } from 'firebase/database';
-// import { useNavigation } from '@react-navigation/native';
+// // export default Nails;
 // import { Ionicons } from '@expo/vector-icons';
 
-// const FemaleHaircuts = () => {
+// const Nails = () => {
 //   const navigation = useNavigation();
 //   const [services, setServices] = useState([]);
 //   const [salons, setSalons] = useState({});
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
 
-//   // Fetch salons
 //   useEffect(() => {
 //     const salonsRef = ref(db, 'salons');
-//     const unsubscribeSalons = onValue(
-//       salonsRef,
-//       (snapshot) => {
-//         if (snapshot.exists()) {
-//           setSalons(snapshot.val());
-//         }
-//       },
-//       (error) => {
-//         console.error('Error fetching salons:', error);
-//       }
-//     );
-
-//     return () => unsubscribeSalons();
-//   }, []);
-
-//   // Fetch services and filter female haircuts
-//   useEffect(() => {
 //     const servicesRef = ref(db, 'services');
+
+//     const unsubscribeSalons = onValue(salonsRef, (snapshot) => {
+//       if (snapshot.exists()) {
+//         setSalons(snapshot.val());
+//       }
+//     });
+
 //     const unsubscribeServices = onValue(
 //       servicesRef,
 //       (snapshot) => {
@@ -221,20 +205,13 @@
 //             ...servicesData[key],
 //           }));
 
-//           // Filter female haircut services
-//           const femaleHaircutServices = servicesArray.filter((service) => {
-//             if (!service.serviceName || !service.serviceName.trim().toLowerCase() === 'haircut') {
-//               return false;
-//             }
+//           const nailServices = servicesArray.filter(
+//             (service) =>
+//               service.serviceName &&
+//               service.serviceName.trim().toLowerCase().includes('nail')
+//           );
 
-//             const matchedSalon = Object.values(salons).find(
-//               (salon) => salon.ownerId === service.ownerId
-//             );
-
-//             return matchedSalon && matchedSalon.salonType === 'Female';
-//           });
-
-//           setServices(femaleHaircutServices);
+//           setServices(nailServices);
 //         } else {
 //           setServices([]);
 //         }
@@ -247,8 +224,11 @@
 //       }
 //     );
 
-//     return () => unsubscribeServices();
-//   }, [salons]);
+//     return () => {
+//       unsubscribeSalons();
+//       unsubscribeServices();
+//     };
+//   }, []);
 
 //   const updatedServices = useMemo(() => {
 //     return services.map((service) => {
@@ -285,7 +265,6 @@
 //       <TouchableOpacity
 //         style={styles.bookNowButton}
 //         onPress={() => {
-//           console.log('Navigating to BookService with:', item);
 //           if (!item.ownerId) {
 //             console.error('❌ Missing owner ID:', item);
 //             Alert.alert('Error', 'Owner ID is missing.');
@@ -307,7 +286,7 @@
 //       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
 //         <Ionicons name="arrow-back" size={24} color="#00665C" />
 //       </TouchableOpacity>
-//       <Text style={styles.header}>Female Haircut Services</Text>
+//       <Text style={styles.header}>Nail Services</Text>
 
 //       {loading ? (
 //         <ActivityIndicator size="large" color="#00665C" style={{ marginTop: 20 }} />
@@ -318,7 +297,7 @@
 //           keyExtractor={(item) => item.id}
 //         />
 //       ) : (
-//         <Text style={styles.emptyMessage}>No Female Haircut services available.</Text>
+//         <Text style={styles.emptyMessage}>No Nail services available.</Text>
 //       )}
 //     </View>
 //   );
@@ -366,42 +345,36 @@
 //   },
 // });
 
-// export default FemaleHaircuts;
+// export default Nails;
 import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { 
+  View, Text, FlatList, StyleSheet, Image, 
+  TouchableOpacity, ActivityIndicator, Alert 
+} from 'react-native';
 import { db } from '../../firebaseConfig';
 import { ref, onValue } from 'firebase/database';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
-const FemaleHaircuts = () => {
+const Nails = () => {
   const navigation = useNavigation();
   const [services, setServices] = useState([]);
   const [salons, setSalons] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch salons
   useEffect(() => {
     const salonsRef = ref(db, 'salons');
-    const unsubscribeSalons = onValue(
-      salonsRef,
-      (snapshot) => {
-        if (snapshot.exists()) {
-          setSalons(snapshot.val());
-        }
-      },
-      (error) => {
-        console.error('Error fetching salons:', error);
-      }
-    );
-
-    return () => unsubscribeSalons();
-  }, []);
-
-  // Fetch services and filter female haircuts
-  useEffect(() => {
     const servicesRef = ref(db, 'services');
+
+    // Fetch salons
+    const unsubscribeSalons = onValue(salonsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setSalons(snapshot.val());
+      }
+    });
+
+    // Fetch services
     const unsubscribeServices = onValue(
       servicesRef,
       (snapshot) => {
@@ -412,22 +385,14 @@ const FemaleHaircuts = () => {
             ...servicesData[key],
           }));
 
-          // Filter female haircut services
-          const femaleHaircutServices = servicesArray.filter((service) => {
-            // Check if serviceName exists and is exactly "haircut"
-            if (!service.serviceName || service.serviceName.trim().toLowerCase() !== 'haircut') {
-              return false;
-            }
+          // ✅ Filter Nail Services
+          const nailServices = servicesArray.filter(
+            (service) =>
+              service.serviceName &&
+              service.serviceName.trim().toLowerCase().includes('nail')
+          );
 
-            // Match with salon and check if it's a female salon
-            const matchedSalon = Object.values(salons).find(
-              (salon) => salon.ownerId === service.ownerId
-            );
-
-            return matchedSalon && matchedSalon.salonType === 'Female';
-          });
-
-          setServices(femaleHaircutServices);
+          setServices(nailServices);
         } else {
           setServices([]);
         }
@@ -440,9 +405,13 @@ const FemaleHaircuts = () => {
       }
     );
 
-    return () => unsubscribeServices();
-  }, [salons]);
+    return () => {
+      unsubscribeSalons();
+      unsubscribeServices();
+    };
+  }, []);
 
+  // ✅ Compute updated services dynamically to prevent ownerId missing errors
   const updatedServices = useMemo(() => {
     return services.map((service) => {
       const matchedSalon = Object.entries(salons).find(
@@ -475,6 +444,7 @@ const FemaleHaircuts = () => {
         </Text>
       </View>
 
+      {/* ✅ Updated Navigation with Salon Info */}
       <TouchableOpacity
         style={styles.bookNowButton}
         onPress={() => {
@@ -500,7 +470,7 @@ const FemaleHaircuts = () => {
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
         <Ionicons name="arrow-back" size={24} color="#00665C" />
       </TouchableOpacity>
-      <Text style={styles.header}>Female Haircut Services</Text>
+      <Text style={styles.header}>Nail Services</Text>
 
       {loading ? (
         <ActivityIndicator size="large" color="#00665C" style={{ marginTop: 20 }} />
@@ -511,7 +481,7 @@ const FemaleHaircuts = () => {
           keyExtractor={(item) => item.id}
         />
       ) : (
-        <Text style={styles.emptyMessage}>No Female Haircut services available.</Text>
+        <Text style={styles.emptyMessage}>No Nail services available.</Text>
       )}
     </View>
   );
@@ -559,4 +529,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FemaleHaircuts;
+export default Nails;
