@@ -13,16 +13,36 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to camera to take photos for beauty analysis and recommendations.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to photo library to select photos for beauty analysis and recommendations.",
+        "NSMicrophoneUsageDescription": "This app may need microphone access for certain features."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to provide beauty analysis and recommendations.",
+          "cameraPermission": "The app accesses your camera to take photos for beauty analysis and recommendations."
+        }
+      ]
+    ]
   }
 }
