@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import ChatbotAPI from '../services/ChatbotAPI';
 
+
+
 // Simple test component to verify API connectivity
 export default function ChatbotTest() {
   const [testResult, setTestResult] = useState('');
