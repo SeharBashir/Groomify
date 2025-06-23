@@ -275,6 +275,7 @@ const UserSignupScreen = () => {
 
       // Default role if not provided
       const userRole = role || "user"; // Fix: Ensure role is never undefined
+      
 
       await set(ref(db, "users/" + user.uid), {
         uid: user.uid,

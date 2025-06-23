@@ -571,6 +571,7 @@ const LoginForm = ({ navigation }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+console.log("Logged in UID:", user.uid);
 
       if (!user.emailVerified) {
         Alert.alert("Email Verification Pending", "Please verify your email before logging in.");
@@ -581,6 +582,7 @@ const LoginForm = ({ navigation }) => {
       // Fetch user data from Firebase
       const userRef = ref(db, `users/${user.uid}`);
       const snapshot = await get(userRef);
+   
 
       if (!snapshot.exists()) {
         Alert.alert("Error", "User data not found. Please sign up again.");
