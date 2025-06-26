@@ -434,13 +434,13 @@ export default function Chatbot() {
 
       const analysisResult = await ChatbotAPI.analyzeImage(formattedImageData, userId);
       
-      // Create analysis result message
+      // Create analysis result message using HTML if available
       const analysisMessage = {
         id: Date.now() + 1,
-        text: formatAnalysisResult(analysisResult),
+        text: analysisResult.html_analysis || formatAnalysisResult(analysisResult),
         isUser: false,
         timestamp: new Date().toLocaleTimeString(),
-        type: 'analysis',
+        type: analysisResult.html_analysis ? 'html' : 'analysis',
         analysisData: analysisResult
       };
 
@@ -466,15 +466,56 @@ export default function Chatbot() {
     result += `👤 Gender: ${analysis.gender} (${analysis.gender_confidence})\n`;
     result += `🔍 Face Shape: ${analysis.face_shape} (${analysis.face_confidence})\n`;
     result += `💇 Hair Style: ${analysis.hair_style} (${analysis.hair_confidence})\n`;
-    result += `🧴 Skin Type: ${analysis.skin_type} (${analysis.skin_confidence})\n\n`;
+    result += `🧴 Skin Type: ${analysis.skin_type} (${analysis.skin_confidence})\n`;
+    result += `🎨 Skin Tone: ${analysis.skin_tone} (${analysis.skin_tone_confidence})\n\n`;
     
     if (analysis.hairstyle_recommendations && analysis.hairstyle_recommendations.length > 0) {
       result += `💡 Recommended Hairstyles:\n`;
-      analysis.hairstyle_recommendations.forEach((style, index) => {
-        // Fix [object Object] issue
-        const styleName = typeof style === 'string' ? style : (style.name || style.style || 'Unknown Style');
-        result += `${index + 1}. ${styleName}\n`;
+      
+      // Filter out empty or nan values and format recommendations
+      const validStyles = analysis.hairstyle_recommendations.filter(style => {
+        // Filter out null, undefined, empty strings
+        if (!style) return false;
+        
+        // Check string formats
+        if (typeof style === 'string') {
+          const trimmed = style.trim();
+          return trimmed !== '' && trimmed !== 'nan';
+        }
+        
+        // Check object formats
+        if (typeof style === 'object') {
+          const styleName = style.style || style.name || '';
+          return styleName && styleName.trim() !== '' && styleName.trim() !== 'nan';
+        }
+        
+        return false;
       });
+      
+      validStyles.forEach((style, index) => {
+        // Handle string format (which might be "style: description")
+        if (typeof style === 'string') {
+          const parts = style.split(':', 1);
+          const styleName = parts[0].trim();
+          result += `${index + 1}. ${styleName}\n`;
+          
+          // Add description if present
+          if (parts.length > 1 && parts[1].trim()) {
+            result += `   ${parts[1].trim()}\n`;
+          }
+        }
+        // Handle object format
+        else {
+          const styleName = style.style || style.name || 'Unknown Style';
+          result += `${index + 1}. ${styleName}\n`;
+          
+          // Add description if present
+          if (style.description && style.description !== 'nan') {
+            result += `   ${style.description}\n`;
+          }
+        }
+      });
+      
       result += `\n`;
     }
 
@@ -537,6 +578,13 @@ export default function Chatbot() {
                       fontSize: 14,
                       lineHeight: 20,
                       color: '#333',
+                    },
+                    h2: {
+                      color: '#00665C',
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                      marginBottom: 12,
+                      textAlign: 'center',
                     },
                     h3: {
                       color: '#00665C',
