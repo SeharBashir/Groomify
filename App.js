@@ -21,6 +21,7 @@ import UserService from './components/users/UserService';
 import BookService from './components/users/BookService';
 import Chatbot from './components/users/Chatbot';
 import HistoryScreen from './components/users/HistoryScreen';
+import AddReviewRating from './components/users/AddreviewRating';
 
 // Female User Services
 import Haircut from './components/users/Haircut';
@@ -57,6 +58,7 @@ import UpdateServiceScreen from './components/salons/UpdataServiceScreen';
 import AppointmentsScreen from './components/salons/AppointmentsScreen';
 import Feedback from './components/salons/Feedback';
 
+
 LogBox.ignoreLogs([
   'TNodeChildrenRenderer: Support for defaultProps will be removed from function components',
   'MemoizedTNodeRenderer: Support for defaultProps will be removed from memo components',
@@ -89,6 +91,7 @@ const App = ({email, setEmail, password, setPassword}) => {
         <Stack.Screen name="BookService" component={BookService} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
         <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
+            <Stack.Screen name="AddReviewRating" component={AddReviewRating} />
 
         {/* Female User Services */}
         <Stack.Screen name="Haircut" component={Haircut} />
