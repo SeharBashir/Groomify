@@ -2,10 +2,12 @@
 export const CONFIG = {
   // Backend API Configuration
   API: {
-    // Change this to your actual Flask backend URL
-    BASE_URL: '   http://10.211.0.117:5000', // Your local IP address
-    // BASE_URL: 'http://localhost:5000', // For local development (only works in simulators)
-    // BASE_URL: 'https://your-backend-domain.com', // For production
+    // Environment-based URL configuration
+    BASE_URL: process.env.EXPO_PUBLIC_API_BASE_URL || 'http://10.211.0.117:5000',
+    // Alternative URLs for different environments:
+    // Development: 'http://localhost:5000' (for simulators)
+    // Android Emulator: 'http://10.0.2.2:5000'
+    // Production: 'https://your-backend-domain.com'
     
     TIMEOUT: 30000, // 30 seconds
     
@@ -14,6 +16,7 @@ export const CONFIG = {
       ANALYZE_IMAGE: '/analyze-image',
       CHAT_RESET: '/chat/reset',
       UPLOADS: '/uploads',
+      HEALTH: '/health',
     },
   },
 
@@ -21,6 +24,7 @@ export const CONFIG = {
   APP: {
     NAME: 'Groomify',
     VERSION: '1.0.0',
+    ENVIRONMENT: process.env.NODE_ENV || 'development',
   },
 
   // UI Configuration
@@ -37,5 +41,10 @@ export const CONFIG = {
     },
   },
 };
+
+// Validate configuration
+if (!CONFIG.API.BASE_URL) {
+  console.warn('⚠️ API BASE_URL not configured. Using default localhost.');
+}
 
 export default CONFIG;

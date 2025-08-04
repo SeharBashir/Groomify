@@ -88,8 +88,20 @@ const ForgotPasswordScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   backgroundImage: { flex: 1, justifyContent: "center" },
-  overlay: { backgroundColor: "rgba(0,0,0,0.5)", flex: 1, justifyContent: "center", padding: 20 },
-  formContainer: { backgroundColor: "(rgba(255, 255, 255, 0.6))", padding: 25, borderRadius: 10, width: "90%", maxWidth: 400 },
+  overlay: { 
+    backgroundColor: 'rgba(0,0,0,0.5)', 
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center",  // Center horizontally
+    padding: 20 
+  },
+  formContainer: { 
+    backgroundColor: "rgba(255, 255, 255, 0.6)", 
+    padding: 25, 
+    borderRadius: 10, 
+    width: "90%", 
+    maxWidth: 400 
+  },
   heading: { fontSize: 26, fontWeight: "bold", color: "#00665C", textAlign: "center", marginBottom: 20 },
   inputContainer: {
     flexDirection: "row",
@@ -105,13 +117,6 @@ const styles = StyleSheet.create({
   buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
   loginText: { textAlign: "center", marginTop: 15, color: "black" },
   loginLink: { color: "#00665C", fontWeight: "bold" },
-  overlay: { 
-    backgroundColor: 'rgba(0,0,0,0.5)', 
-    flex: 1, 
-    justifyContent: "center", 
-    alignItems: "center",  // Center horizontally
-    padding: 20 
-  },
   backButton: { position: "absolute", top: 40, left: 20, zIndex: 10 },
 });
 
