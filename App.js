@@ -67,7 +67,7 @@ LogBox.ignoreLogs([
 
 const Stack = createNativeStackNavigator();
 
-const App = ({email, setEmail, password, setPassword}) => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{ headerShown: false }}>

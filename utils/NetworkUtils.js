@@ -26,15 +26,41 @@ export class NetworkUtils {
   }
 
   /**
+   * Create a fetch request with timeout support
+   * @param {string} url - The URL to fetch
+   * @param {object} options - Fetch options
+   * @param {number} timeout - Timeout in milliseconds
+   * @returns {Promise} - Fetch promise with timeout
+   */
+  static async fetchWithTimeout(url, options = {}, timeout = 5000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error.name === 'AbortError') {
+        throw new Error('Request timeout');
+      }
+      throw error;
+    }
+  }
+
+  /**
    * Check if the backend is reachable
    * @returns {Promise<boolean>} - True if backend is reachable
    */
   static async checkBackendHealth() {
     try {
-      const response = await fetch(`${this.getApiUrl()}/`, {
+      const response = await this.fetchWithTimeout(`${this.getApiUrl()}/`, {
         method: 'GET',
-        timeout: 5000,
-      });
+      }, 5000);
       return response.ok;
     } catch (error) {
       console.log('Backend health check failed:', error);
@@ -66,17 +92,16 @@ export class NetworkUtils {
     
     for (const url of testUrls) {
       try {
-        const response = await fetch(url, {
+        const response = await this.fetchWithTimeout(url, {
           method: 'GET',
-          timeout: 3000,
-        });
+        }, 3000);
         
         if (response.ok) {
           console.log(`✅ Backend found at: ${url}`);
           return url;
         }
       } catch (error) {
-        console.log(`❌ Failed to connect to: ${url}`);
+        console.log(`❌ Failed to connect to: ${url}`, error.message);
       }
     }
     
