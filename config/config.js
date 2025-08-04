@@ -3,7 +3,7 @@ export const CONFIG = {
   // Backend API Configuration
   API: {
     // Change this to your actual Flask backend URL
-    BASE_URL: ' http://10.215.1.224:5000', // Your local IP address
+    BASE_URL: '   http://10.211.0.117:5000', // Your local IP address
     // BASE_URL: 'http://localhost:5000', // For local development (only works in simulators)
     // BASE_URL: 'https://your-backend-domain.com', // For production
     

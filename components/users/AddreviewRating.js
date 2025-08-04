@@ -408,7 +408,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { updatePreference } from "../../utils/updatePreference"; // ✅ Correct import
 
 const AddReviewRating = ({ route, navigation }) => {
-  const { serviceId, salonId, ownerId, serviceName } = route.params;
+  const { serviceId, ownerId, serviceName } = route.params;
 
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
@@ -437,7 +437,7 @@ const AddReviewRating = ({ route, navigation }) => {
       await push(reviewsRef, {
         userId: uid,
         serviceId,
-        salonId,
+        
         ownerId,
         serviceName,
         rating: Number(rating),
